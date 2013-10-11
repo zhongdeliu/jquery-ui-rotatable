@@ -31,7 +31,6 @@ $.widget("ui.rotatable", $.ui.mouse, {
 
     var handle = this.options.handle;
     handle.addClass('ui-rotatable-handle');
-    handle.draggable({ helper: 'clone', start: this.dragStart });
     handle.bind('mousedown', this.listeners.startRotate);
     handle.appendTo(this.element);
     this.elementCurrentAngle = 0;
@@ -42,6 +41,7 @@ $.widget("ui.rotatable", $.ui.mouse, {
     this.element.css('-moz-transform','rotate(' + angle + 'rad)');
     this.element.css('-webkit-transform','rotate(' + angle + 'rad)');
     this.element.css('-o-transform','rotate(' + angle + 'rad)');
+    this.element.css('-ms-transform','rotate(' + angle + 'rad)');
   },
 
   getElementOffset: function() {
@@ -98,7 +98,7 @@ $.widget("ui.rotatable", $.ui.mouse, {
     // Plugins callbacks need to be called first.
     this._propagate("rotate", event);
 
-    if (previousRotateAngle != rotateAngle) {
+    if (previousRotateAngle !== rotateAngle) {
       this._trigger("rotate", event, this.ui());
       this.hasRotated = true;
     }
